@@ -15,15 +15,17 @@ Before you begin, ensure you have the following prerequisites met:
 
 ## Workflow
 
-### Step 1: DDPM and nnU-Net Pre-training
-
-**Description:**
-This initial step involves pre-training the foundational models: a Denoising Diffusion Probabilistic Model (DDPM) and an nnU-Net model on your source domain data. HEAL itself is learning-free during the adaptation phase, relying on these pre-trained models.
+### Step 1: Med-DDPM and nnU-Net Pre-training
 
 * **nnU-Net Pre-training:** For training your nnU-Net model on the source domain, please refer to the official nnU-Net repository and documentation:
     * [MIC-DKFZ/nnUNet](https://github.com/MIC-DKFZ/nnUNet)
-* **DDPM Pre-training:** For pre-training the DDPM, please follow the guidelines and use the codebase provided by:
-    * [mobaidoctor/med-ddpm](https://github.com/mobaidoctor/med-ddpm)
+* **DDPM Pre-training:** For pre-training the DDPM, please follow the guidelines and use the code provided by:
+    
+    * ```python
+      python med-ddpm/train_brats.py --XX --XX --XX
+      ```
+    
+      
 
 ---
 
@@ -32,7 +34,7 @@ This initial step involves pre-training the foundational models: a Denoising Dif
 **How to Run:** (Remember to save the soft predictions from nnunet)
 
 ```bash
-python /media/XX/nnUNet/nnunetv2/inference/predict_from_raw_data.py -i /media/XX/nnUNetFrame/nnUNet_raw/Dataset147_BraTS00/imagesTr -o /media/XX//T1ce2T1 -d 148 -c 3d_fullres -p nnUNetResEncUNetPlans
+python /media/XX/nnUNet/nnunetv2/inference/predict_from_raw_data.py -i /media/XX/nnUNetFrame/nnUNet_raw/Dataset147_BraTS00/imagesTr -o /media/XX//T1ce2T1 -d 148 -c 3d_fullres -p nnUNetResEncUNetPlans  --save_probability
 ```
 
 ---
@@ -53,44 +55,34 @@ python /media/XX/nnUNet/nnunetv2/inference/predict_from_raw_data.py -i /media/XX
 ### Step 4: DDPM Inference with Denoised Pseudo-Labels
 
 **How to Run:**
-1.  Inputs: Denoised pseudo-labels (from Step 3)
+1.  Inputs: Denoised pseudo-labels (from Step 3) and organize it.
 2.  Execute the DDPM inference script.
     ```bash
+    python preprocess_brats_data.py
     python med-ddpm/sample_brats.py -XX -XX -XX
     ```
 
 ---
 
-### Step 5: Edge Extraction and Best Sample Selection (EGS³ Module)
-
-**Description:**
-This step incorporates our Edge Guidance and Strong Sample Selection (EGS³) module. It involves extracting edge information from the images/labels and a strategy to select the most reliable or "strong" pseudo-labeled samples based on confidence or stability criteria.
+### Step 5: Edge Extraction and Selection (EGS Module)
 
 **How to Run:**
-1.  Inputs: DDPM-refined labels (from Step 4), potentially original images or uncertainty maps.
-2.  Execute the sample selection script.
+1.  Inputs: DDPM-Generated images.
+2.  Execute the edge extraction and sample selection script:
     ```bash
     # Example placeholder command:
-    python scripts/step5_egs_selection.py \
-        --input_ddpm_labels /path/to/save/ddpm_refined_labels \
-        --output_strong_samples_info /path/to/save/strong_samples_list.txt \
-        --input_images /path/to/target_domain_images # Optional, if needed for edge extraction
+    python Extract_edge_canny.py
+    python Sample_selection.py
     ```
 
 ---
 
-### Step 6: Size-Aware Fusion (SAF Module)
-
-**Description:**
-The final step is our Size-Aware Fusion (SAF) module. It dynamically fuses pseudo-labels (possibly from different refinement stages or for different selected samples) based on the size of the segmentation target. This helps to improve segmentation performance, especially for objects of varying scales.
+### Step 6: Size-Aware Fusion (SAF)
 
 **How to Run:**
-1.  Inputs: Selected strong pseudo-labels (from Step 5) and potentially other intermediate segmentation results.
+
+1.  Inputs: Selected image inference and HD refined pseudo-label.
 2.  Execute the fusion script.
     ```bash
-    # Example placeholder command:
-    python scripts/step6_size_aware_fusion.py \
-        --input_labels_to_fuse /path/to/labels_for_fusion_or_strong_samples \
-        --output_final_segmentations /path/to/save/final_HEAL_segmentations
+    python dynamic_fusion.py --XX --XX --XX
     ```
-
