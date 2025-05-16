@@ -17,10 +17,11 @@ Before you begin, ensure you have the following prerequisites met:
 
 ### Step 1: Med-DDPM and nnU-Net Pre-training
 
-* **nnU-Net Pre-training:** For training your nnU-Net model on the source domain, please refer to the official nnU-Net repository and documentation:
-    * [MIC-DKFZ/nnUNet](https://github.com/MIC-DKFZ/nnUNet)
-* **DDPM Pre-training:** For pre-training the DDPM, please follow the guidelines and use the code provided by:
+* **nnU-Net Pre-training:** For training your nnU-Net model on the source domain, please refer to the official nnU-Net repository and documentation: (3d_fullres for BraTS and 2d for polyp)
     
+    * [MIC-DKFZ/nnUNet](https://github.com/MIC-DKFZ/nnUNet)
+* **DDPM Pre-training:** For pre-training the DDPM, please follow the guidelines and use the code provided by [mobaidoctor/med-ddpm](https://github.com/mobaidoctor/med-ddpm):
+  
     * ```python
       python med-ddpm/train_brats.py --XX --XX --XX
       ```
@@ -70,7 +71,6 @@ python /media/XX/nnUNet/nnunetv2/inference/predict_from_raw_data.py -i /media/XX
 1.  Inputs: DDPM-Generated images.
 2.  Execute the edge extraction and sample selection script:
     ```bash
-    # Example placeholder command:
     python Extract_edge_canny.py
     python Sample_selection.py
     ```
