@@ -18,7 +18,7 @@ Before you begin, ensure you have the following prerequisites met:
 ### Step 1: Med-DDPM and nnU-Net Pre-training
 
 * **nnU-Net Pre-training:** For training your nnU-Net model on the source domain, please refer to the official nnU-Net repository and documentation: (3d_fullres for BraTS and 2d for polyp)
-    
+  
     * [MIC-DKFZ/nnUNet](https://github.com/MIC-DKFZ/nnUNet)
 * **DDPM Pre-training:** For pre-training the DDPM, please follow the guidelines and use the code provided by [mobaidoctor/med-ddpm](https://github.com/mobaidoctor/med-ddpm):
   
@@ -26,7 +26,7 @@ Before you begin, ensure you have the following prerequisites met:
       python med-ddpm/train_brats.py --XX --XX --XX
       ```
     
-      
+      Note： The pretrained diffusion model can be accessed form https://drive.google.com/drive/folders/1gr8x1cVIKV_l8jJdgIor9-gqPndfmqbl?usp=drive_link
 
 ---
 
@@ -86,3 +86,17 @@ python /media/XX/nnUNet/nnunetv2/inference/predict_from_raw_data.py -i /media/XX
     ```bash
     python dynamic_fusion.py --XX --XX --XX
     ```
+
+## ✅ TODO List
+
+-  Upload source code for **HEAL** framework
+-  Release pretrained source models (nnUNet and Diffusion)
+-  Upload inference and training scripts
+-  Write a detailed usage guide
+
+## 🙏 Acknowledgements
+
+We sincerely thank the developers of the following open-source tools and datasets, which have made our research possible:
+
+- [nnUNet](https://github.com/MIC-DKFZ/nnUNet) for the baseline segmentation framework.
+- [mobaidoctor/med-ddpm](https://github.com/mobaidoctor/med-ddpm) for diffusion inference.
