@@ -1,6 +1,6 @@
 # HEAL: Learning-Free Source-Free Unsupervised Domain Adaptation for Cross-Modality Medical Image Segmentation
 
-This repository contains the official PyTorch implementation for **HEAL**
+This repository contains the official PyTorch implementation for **HEAL**, Our paper has been accepted in The 36th British Machine Vision Conference.
 
 ## Overview of the HEAL Framework
 
