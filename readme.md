@@ -4,7 +4,7 @@ This repository contains the official PyTorch implementation for **HEAL**, Our p
 
 ## Overview of the HEAL Framework
 
-![Overview of HEAL Framework](images/overview.png)
+![Overview of HEAL Framework](./images/overview.png)
 
 ## Prerequisites
 
